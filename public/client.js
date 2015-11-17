@@ -95,3 +95,35 @@ socket.on('removeTimeslot', function(timeslotId) {
 
   $("#" + timeslotId).remove();
 });
+
+socket.on('currentSchedule', function(timeSlots) {
+
+  for (timeslot in timeSlots) {
+
+    var urlString = timeslot.randUrl;
+
+     $('#schedule-table-body').append(
+       "<tr id='timeslot-"
+       + urlString
+       + "-" + count + "'>"
+         + "<td>"
+           + timeslot.date
+         + "</td>"
+         + "<td>"
+           + timeslot.startTime
+         + "</td>"
+         + "<td>"
+           + timeslot.endTime
+         + "</td>"
+         + "<td>"
+           + "<a id='timeslot-"
+           + timeslot.urlString
+           + "-"
+           + count
+           + "'>Remove</a>"
+         + "</td>"
+       + "</tr>"
+     );
+  }
+  console.log(timeSlots);
+});

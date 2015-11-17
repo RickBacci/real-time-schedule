@@ -37,6 +37,10 @@ io.on('connection', function(socket) {
   io.sockets.emit('usersConnected', io.engine.clientsCount);
   socket.emit('statusMessage', 'You have connected.');
 
+  // need to get the entire table for the user
+  console.log(timeSlots)
+  socket.emit('currentSchedule', timeSlots);
+
   socket.on('disconnect', function() {
     console.log('A user has disconnected.');
     io.sockets.emit('userConnection', io.engine.clientsCount);
