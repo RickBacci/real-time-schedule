@@ -49,17 +49,17 @@ io.on('connection', function(socket) {
     io.sockets.emit('timeslotTable', timeSlots);
   });
 
-  socket.on('send-TimeSlot-to-delete', function(timeslotId) {
-    // this should delete only one timeslot not entire schedule
-    timeSlots[timeslotId] = ''
-    // need to add the timeslot id to the hash
+  socket.on('send-TimeSlot-to-delete', function(timeslotInfo) {
 
-    // pry = require('pryjs')
-    // eval(pry.it)
+    var timeslotId = timeslotInfo[0];
+    var randUrl = timeslotInfo[1];
+
+    console.log(timeslotId);
+
+    timeSlots[randUrl] = ''
 
     io.sockets.emit('removeTimeslot', timeslotId);
   });
-
 
 });
 

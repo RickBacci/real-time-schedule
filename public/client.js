@@ -14,13 +14,16 @@ socket.on('statusMessage', function(message) {
 
 var count = 1;
 
+// adding a row
 socket.on('timeslotTable', function(timeSlots) {
   var randUrl= window.location.pathname.substr(7)
 
   var timeslot = timeSlots[randUrl];
 
    $('#schedule-table-body').append(
-     "<tr>"
+     "<tr id='timeslot-"
+     + randUrl
+     + "-" + count + "'>"
        + "<td>"
          + timeslot.date
        + "</td>"
@@ -50,7 +53,7 @@ socket.on('timeslotTable', function(timeSlots) {
 
     event.target.parentNode.parentNode.remove();
 
-    socket.emit('send-TimeSlot-to-delete', randUrl);
+    socket.emit('send-TimeSlot-to-delete', [timeslotId, randUrl]);
 
   });
   count ++
@@ -90,5 +93,5 @@ $( "#create-timeslot-button" ).on( "click", function(event) {
 
 socket.on('removeTimeslot', function(timeslotId) {
 
-  $("timeslot-" + timeslotId + "-1").remove();
+  $("#" + timeslotId).remove();
 });
