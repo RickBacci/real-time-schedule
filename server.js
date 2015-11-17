@@ -37,6 +37,11 @@ io.on('connection', function(socket) {
   io.sockets.emit('usersConnected', io.engine.clientsCount);
   socket.emit('statusMessage', 'You have connected.');
 
+  socket.on('disconnect', function() {
+    console.log('A user has disconnected.');
+    io.sockets.emit('userConnection', io.engine.clientsCount);
+  });
+
   socket.on('createTimeSlot', function(timeslot) {
 
     timeSlots[timeslot.randUrl] = timeslot;
@@ -44,10 +49,17 @@ io.on('connection', function(socket) {
     io.sockets.emit('timeslotTable', timeSlots);
   });
 
-  socket.on('disconnect', function() {
-    console.log('A user has disconnected.');
-    io.sockets.emit('userConnection', io.engine.clientsCount);
+  socket.on('send-TimeSlot-to-delete', function(timeslotId) {
+    // this should delete only one timeslot not entire schedule
+    timeSlots[timeslotId] = ''
+    // need to add the timeslot id to the hash
+
+    // pry = require('pryjs')
+    // eval(pry.it)
+
+    io.sockets.emit('removeTimeslot', timeslotId);
   });
+
 
 });
 

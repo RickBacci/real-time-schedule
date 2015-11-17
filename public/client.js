@@ -12,6 +12,8 @@ socket.on('statusMessage', function(message) {
   statusMessage.innerText = message;
 });
 
+var count = 1;
+
 socket.on('timeslotTable', function(timeSlots) {
   var randUrl= window.location.pathname.substr(7)
 
@@ -31,19 +33,27 @@ socket.on('timeslotTable', function(timeSlots) {
        + "<td>"
          + "<a id='timeslot-"
          + timeslot.randUrl
+         + "-"
+         + count
          + "'>Remove</a>"
        + "</td>"
      + "</tr>"
    );
 
-  var timeslotId = "#timeslot-" + randUrl;
 
-  $(timeslotId).on( "click", function(event) {
+  $('#schedule-table-body').on( "click", function(event) {
     event.preventDefault();
 
+    var timeslotId = event.target.id
+
     console.log('remove button clicked for: ' + timeslotId);
-    // $(timeslotId)
+
+    event.target.parentNode.parentNode.remove();
+
+    socket.emit('send-TimeSlot-to-delete', randUrl);
+
   });
+  count ++
 
 });
 
@@ -74,5 +84,11 @@ $( "#create-timeslot-button" ).on( "click", function(event) {
   console.log("Start time: " + startTime );
   console.log("End time: " + endTime );
   console.log("randUrl: " + randUrl );
+
+
 })
 
+socket.on('removeTimeslot', function(timeslotId) {
+
+  $("timeslot-" + timeslotId + "-1").remove();
+});
