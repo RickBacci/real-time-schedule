@@ -3,7 +3,9 @@
 $( ".schedule-button" ).on( "click", function() {
   console.log('schedule button clocked');
 
-  window.location.replace("http://localhost:3000/admin/" + randString());
+  var host = window.location.host;
+
+  window.location.replace("http://" + host + "/admin/" + randString());
 })
 
 function randString() {

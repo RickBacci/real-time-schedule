@@ -10,7 +10,7 @@ Node app that uses websockets to update statuses of the schedule
 ## About the Project
 
 [Production link](realtime-schedule-175.herokuapp.com)
-[Real-time project link](https://github.com/turingschool/curriculum/blob/master/source/projects/realtime-schedule.markdown)
+[Real-time project link](https://github.com/turingschool/curriculum/blob/master/source/projects/real-time-schedule.markdown)
 
 Every project that we've done so far—with the exception of Game Time—has been bound by the whole HTTP request/response cycle. In this project, we're going to head off the beaten track for a bit and build real time applications with WebSockets. When the server gets new information, it pushes it out to all of the connected clients.
 
